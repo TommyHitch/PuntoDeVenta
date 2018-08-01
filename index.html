@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href=bootstrap-4\cssbootstrap.min.css">
+</head>
+<body>
+<h1>Punto de venta</h1>
+<nav class="nav">
+	<ul class="nav">
+	<a href="">Ventas</a>
+	<a href="">Clientes</a>
+	<a href="">Productos</a>
+	<a href="">Inventario</a>
+    </ul>
+</nav>
+<div>
+	<form action="index.php" method="post">
+		Codigo del producto 
+		<input type="text" name="codigo">
+		<input type="button" name="agregar" value="ENTER- Agregar producto">
+	</form>
+</div>
+<div>
+	<h2>Pantalla donde se lista los producto</h2>
+	<?php
+	$valor ="";
+	$valor = $_POST['codigo'];
+	echo "<p>".$valor."</p>";
+	?>
+</div>
+<footer>
+	<div>
+		<form>
+		<h3>Muestra la cantidad a pagar</h3>
+		<input type="submit" name="cobrar" class="btn btn-primary" value="Cobrar">
+	    </form>
+	</div>
+</footer>
+</body>
+</html>

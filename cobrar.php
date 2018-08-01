@@ -19,16 +19,35 @@
 </form>
 </div>
 </body>
-<?php 
+<?php
+function vaciarVenta(){
+$fp = fopen("venta.txt", "w+");
+fclose($fp);
+} 
+function vaciarTotal(){
+	$fp = fopen("total.txt", "w+");
+	$cero = floatval("0.000");
+	fputs($fp, $cero);
+fclose($fp);
+}
+function leeTotal(){
+	   $fp = fopen("total.txt", "r+");
+$counter = fgets($fp);
+$total = floatval($counter);
+fclose($fp);
+return $total;
+}
 if (isset($_POST['efectivo'])) {
 	//HAY QUE RECIBIR POR EL LINK LA CANTIDAD A PAGAR
 $efectivo = $_POST['efectivo'];
-$cuenta = 100;
+$cuenta = leeTotal();
 $band=0;
 //restar la cuenta al efectivo
 if ($efectivo>=$cuenta) {
 	$cambio = $cuenta - $efectivo;
     echo "<h2>Cambio: $cambio</h2>";
+    vaciarTotal();
+    vaciarVenta();
     header('Location: index.php');    
 }else{
 	echo "La cantidad es menor al total a pagar!";
