@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Punto de Venta</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="bootstrap4\css\bootstrap.min.css">
@@ -50,7 +50,11 @@
      <?php include('buscar_producto.php'); ?>
 	</table>
 	
-     <h2>Total a pagar: <?php if(isset($total))echo $total ?></h2>
+     <h2>Total a pagar: <?php    $fp = fopen("total.txt", "r+");
+$counter = fgets($fp, 7);
+echo $counter;
+
+fclose($fp);?></h2>
   
 </div>
 <div>
