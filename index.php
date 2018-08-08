@@ -1,3 +1,8 @@
+<?php 
+$nombre="suma";
+$valor=0;
+//setcookie($nombre,$valor,time()+ (86400 * 30), "/");
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,40 +10,41 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="bootstrap4\css\bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="estilosPuntoVenta.css">
 	<link rel="js" type="text/css" href="bootstrap4\css\bootstrap.min.js">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 </head>
-<body>
-<h1>Punto de venta</h1>
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+<body class="container">
+<div class="row">	
+     <h1>Punto de venta</h1>
+</div>
 
-	<ul class="navbar-nav">
+<nav class="row nav navbar-tabs " id="menuPrincipal">
+<?php include "menus/menuPrincipal.php";?>
+
+</nav>
+<nav class="row nav navbar-tabs " id="menuSecundario">
+
+	<ul class="nav nav-tabs nav-justified">
 	<li class="nav-item">
-		<a class=" active nav-link" href="index.php"><i class="fa fa-home"></i></a>
+		<a class="nav-link" href=""> </a>
 	</li>	
-	<li class="nav-item">
-		<a class="nav-link active" href="">Ventas</a>
-	</li>	
-	<li class="nav-item">
-	<a class="nav-link" href="">Clientes</a>
-    </li>
-    <li class="nav-item">
-	<a class="nav-link" href="productos.php">Productos</a>
-    </li>
-	<li class="nav-item">
-	<a class="nav-link" href="">Inventario</a>
-     </li>
+     
     </ul>
 </nav>
-<div>
+<div class="">
+<div id="formEntrada" class="row ">
 	<form action="index.php" method="post">
-		Codigo del producto 
-		<input type="text" name="codigo" autofocus="active">
-		<input type="submit" name="agregar" value="ENTER- Agregar producto">
+		<div class="form-group col-sm-12">
+		    <label> Codigo del producto <label>
+		    <input class="col-sm-6" type="text" name="codigo" autofocus="active">    
+		    <input class="btn btn-primary" type="submit" name="agregar" value="ENTER- Agregar producto">
+		</div>
 	</form>
 </div>
-<div class="container table-responsive"> 
+
+<div class="row " id="pantalla"> 
 	<h2>Pantalla donde se lista los producto</h2>
 	
 	<table class="table">
@@ -50,14 +56,17 @@
      <?php include('buscar_producto.php'); ?>
 	</table>
 	
-     <h2>Total a pagar: <?php    $fp = fopen("total.txt", "r+");
-$counter = fgets($fp, 7);
-echo $counter;
-
-fclose($fp);?></h2>
+     <h2>Total a pagar: <?php 
+$fp = fopen("total.txt", "r+");
+$cuenta = fgets($fp, 7);
+echo $cuenta;
+rewind($fp);
+fputs($fp, $cuenta);
+fclose($fp);
+?></h2>
   
 </div>
-<div>
+<div id="cobro" class="row">
 		<form action="cobrar.php" method="post">
 		
 		<input type="submit" name="cobrar" class="btn btn-primary" value="cobrar">
@@ -67,11 +76,9 @@ fclose($fp);?></h2>
 		?>
 	    </form>
 	</div>
-<div class="container">	
-<footer class="panel panel-footer">
-	<p>Punto de venta </p>
-	<p>Para mayor informacion: 227 101 71 85</p>
-</footer>
+</div>
+<div class="row " id="footer">	
+<?php include "footer.php"; ?>
 </div>
 </body>
 </html>

@@ -10,7 +10,8 @@ $_SESSION['contrasena']=$_POST['password'];
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="bootstrap4\css\bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap4\css\bootstrap.min.js">
+	<link rel="stylesheet" type="text/css" href="estilosPuntoVenta.css">
+	<script type="text/javascript" src="bootstrap4\js\bootstrap.min.js"></script>
 </head>
 <body>
 

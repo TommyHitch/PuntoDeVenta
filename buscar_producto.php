@@ -1,20 +1,28 @@
 <?php 
 require_once("conexion.php");
-$venta = array();
-
-$numeroAuxiliar = array('0.0','0.0','0.0');
-global $numeroAuxiliar;
-$numeroAuxiliar[0]=0.0;
+// *************************************************************************************************************
 $p="<td>";
 $p2="</td>";
-$code=0; $describe = ""; $price=0;
-
+$file="venta.txt";
+// *************************************************************************************************************
 if(isset($_POST['codigo'])){
 $patron = $_POST['codigo'];
+
 $sql= "SELECT * FROM productos WHERE codigo = $_POST[codigo]";//41789001864
 $result= mysqli_query($conn,$sql);
-$c=mysqli_num_rows($result);
-$file="venta.txt";
+
+//funcion que guarda el valor del producto y lo va sumando en un archivo
+function sumaCuenta($precio){
+$fp = fopen("total.txt", "r+");
+$cuenta = fgets($fp, 7);
+echo "cuenta en el documento: ".$cuenta."<br>"; 
+echo "precio recibido: ".$precio."<br>";
+$cuenta = floatval($cuenta) + floatval($precio);
+echo "suma: ".$cuenta;
+rewind($fp);
+fputs($fp, $cuenta);
+fclose($fp);
+}
 
 //funcion que imprime el archivo venta.txt
 function ImprimeVenta($fp){
@@ -32,8 +40,7 @@ $band=0;
 
 echo "<tr>";
 while ($token !== false) {
-   asignaValores($band,$token);
-   
+      
    echo "<td>".$token."</td>";
    $token = strtok(",");
    $band++;
@@ -41,67 +48,18 @@ while ($token !== false) {
 echo "</tr>";
 }
 
-//Asigna el precio del producto
-function asignaValores($opcion,$valor){
-   
-if ($opcion == 2) {
-$temp = floatval($valor);
-$numeroAuxiliar[]=$temp;
-//print_r($numeroAuxiliar);-----------------
-}
-}
-
-function imprimeArreglo($numeroAuxiliar){
-$lenght=count($numeroAuxiliar);
-for ($i=0; $i < $lenght; $i++) { 
-   echo "$numeroAuxiliar[$i]"."<br>";
-}
-}
-
-function sumaCuenta(){
-   $fp = fopen("total.txt", "r+");
-$counter = fgets($fp);
-//echo $counter;
-$numero1=floatval($counter);
-$numero2=floatval($valor);
-echo "numero1: "."$numero1"."+"."$numero2"."<br>";
-$suma = $numero2 + $numero1;
-rewind($fp);
-fputs($fp, $suma);
-fclose($fp);
-}
-
-
 
 $fp = fopen($file, "a+");
- while ($registros=mysqli_fetch_assoc($result)) {
-   	//echo "<tr>";
-   	//echo $p.$registros["codigo"].$p2.$p.$registros['descripcion'].$p2.$p.$registros['precioVenta'].$p2;
-   	//echo "</tr>";
-   	
-      $producto = array($registros["codigo"],$registros['descripcion'],$registros['precioVenta']);
-   	      $venta = array($producto);
+
+ while ($registros=mysqli_fetch_assoc($result)) {  	      
+      sumaCuenta($registros['precioVenta']);        	      
       fputs($fp, $registros["codigo"].",".$registros['descripcion'].",".$registros['precioVenta']."\n");
    }
-
-   $venta = $producto;
-
-   //Agregar productos a un arreglo para sumar los precios
-   //calculando el tamaño del arreglo
+   
    rewind($fp);
-   
    ImprimeVenta($fp);
-   //hacer clic comprar 
-   
-   print_r($numeroAuxiliar);
-
    fclose($fp);
    }
-
-   //PRIMERO GUARDAMOS EL ARTICULO EN LA LISTA DE VENTA
-   //DESPUES LEEMOS EL ARCHIVO CON TODOS LOS ARTICULOS
-   //SUMAMOS LOS VALORES 
-   //VACIAMOS EL ARCHIVO DESPUES DE PAGAR LA CUENTA
 mysqli_close($conn);
 ?>   
 
