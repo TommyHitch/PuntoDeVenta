@@ -12,12 +12,11 @@
 </head>
 <body class="container">
 <div class="row encabezado">	
-     <h1>Modificar producto</h1>
+     <h1>Punto de venta</h1>
 </div>
 
 <nav class="row nav navbar-tabs ">
-<?php include "menus/menuPrincipal.php";?> 
-	
+<?php include "menus/menuPrincipal.php"; ?>
 </nav>
 <nav class="row nav nav-tabs nav-justified">
 <?php include "menus/menuProductos.php"; ?>
@@ -28,7 +27,9 @@
   </div>
 
   <div class="container" id="pantalla"> 
-     <?php include "insertaCodigo.php";?>
+<?php include "agregarProducto.php";?>
+    
+  
   </div>
   <div id="cobro" class="container">
   </div>
@@ -38,23 +39,3 @@
 </div>
 </body>
 </html>
-<?php 
-require_once('conexion.php');	
-if (isset($_POST['codigo'])) {
-	$codigo = $_POST['codigo'];
-$sql = "SELECT * FROM productos WHERE codigo = $codigo";
-$result= mysqli_query($conn,$sql);
-$c=mysqli_num_rows($result);
-$registro=mysqli_fetch_assoc($result);
-//hay que enviar esta variable al archivo modificarProducto.php
-print_r($registro);
-echo $registro['codigo'];
-//checar donde se cierra la conexion de la base de datos	
-session_start();
-$_SESSION['productoParaModificar']=$registro;
-//reedirigir con javascript
- echo "<script> window.location='modificarProducto.php'; </script>";
-}
-
-
-?>

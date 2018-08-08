@@ -1,0 +1,32 @@
+nav{
+	background-color: yellow;
+	/*background-color: white;*/
+}
+body{
+	background-color: red;
+	/*background-color: white;*/
+}
+#formEntrada{
+	background-color: lightblue;
+	/*background-color: white;*/
+}
+#pantalla{
+	background-color: lightgreen;
+	/*background-color: white;*/
+}
+#table{
+	background-color: pink;
+	/*background-color: white;*/
+}
+#cobro{
+	background-color: violet;
+	/*background-color: white;*/
+}
+#pantalla2{
+	background-color: lightyellow;
+	/*background-color: white;*/
+}
+#footer{
+	background-color: gray;
+	/*background-color: white;*/
+}
